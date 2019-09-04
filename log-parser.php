@@ -13,38 +13,6 @@ if(preg_match_all($pattern, $log, $match, PREG_PATTERN_ORDER)) {
     $userAgent = $match[11];
 }
 
-?>
-    <h1>Log Parser</h1>
-    <dl>
-        <dt>Total Number Of Entries</dt>
-        <dd><?= count($match[0]) ?></dd>
-    </dl>
-    <dl>
-        <dt>Errors</dt>
-        <dd><?= getNumberOfErrors($status) ?></dd>
-    </dl>
-    <dl>
-        <dt>Successes</dt>
-        <dd><?= getNumberOfSuccesses($status) ?></dd>
-    </dl>
-    <dl>
-        <dt>Most Frequent Files</dt>
-        <dd>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </dd>
-    </dl>
-    <dl>
-        <dt>Most Popular Referrers</dt>
-        <dd></dd>
-    </dl>
-
-<?php
-
-
 function getNumberOfErrors($status) {
     $errors = 0;
     foreach ($status as $entry) {
@@ -74,3 +42,31 @@ function getMostPopularReferrers() {
 }
 
 ?>
+
+<h1>Log Parser</h1>
+<dl>
+    <dt>Total Number Of Entries</dt>
+    <dd><?= count($match[0]) ?></dd>
+</dl>
+<dl>
+    <dt>Errors</dt>
+    <dd><?= getNumberOfErrors($status) ?></dd>
+</dl>
+<dl>
+    <dt>Successes</dt>
+    <dd><?= getNumberOfSuccesses($status) ?></dd>
+</dl>
+<dl>
+    <dt>Most Frequent Files</dt>
+    <dd>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </dd>
+</dl>
+<dl>
+    <dt>Most Popular Referrers</dt>
+    <dd></dd>
+</dl>
