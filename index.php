@@ -22,12 +22,14 @@ $parser = new LogParser(file_get_contents('accesslog_kylebeard.com_9_1_2019'));
             <td>Most Frequent Files</td>
             <td>
                 <?php
-                $mostFrequentFiles = $parser->getMostFrequentFiles();
-                $filePercentages = $parser->getFilePercentages();
+                $fileData = $parser->getFileData();
+                foreach ($fileData['counts'] as $key => $value) {
+                    $percentage = round( ( (intval($value) / $parser->getNumberOfEntries() ) * 100) );
+                    ?>
+                    <p><?= $key ?> <span>(<?= $percentage ?>%)</span></p>
+                    <?php
+                }
                 ?>
-                <?= $mostFrequentFiles[0] ?> <span><?= $filePercentages[0] ?>%</span><br>
-                <?= $mostFrequentFiles[1] ?> <span><?= $filePercentages[1] ?>%</span><br>
-                <?= $mostFrequentFiles[2] ?> <span><?= $filePercentages[2] ?>%</span>
             </td>
         </tr>
         <tr>

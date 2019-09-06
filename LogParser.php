@@ -54,6 +54,24 @@ class LogParser {
         return $successes;
     }
 
+    function getFileData () {
+        // remove params from requests
+        $files = [];
+        foreach ( $this->requests as $entry ) {
+            $pos = strpos($entry, "?");
+            if ( $pos ) {
+                $files[] = substr($entry, 0, $pos);
+            } else {
+                $files[] = $entry;
+            }
+        }
+        $fileData = [];
+        $fileData['files'] = array_values(array_unique($files));
+        $fileData['counts'] = array_count_values($files);
+        arsort($fileData['counts']);
+        return $fileData;
+    }
+
     function getMostFrequentFiles () {
         // remove params from requests
         $requestsSansParams = [];
@@ -100,9 +118,6 @@ class LogParser {
         $referrerData['referrers'] = array_values(array_unique($this->referrers));
         $referrerData['counts'] = array_count_values($this->referrers);
         arsort($referrerData['counts']);
-        foreach ( $referrerData['counts'] as $referrer ) {
-            $referrerData['percentages'][] = round((intval($referrer) / count($this->referrers)) * 100);
-        }
         return $referrerData;
     }
 }
