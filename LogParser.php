@@ -72,46 +72,6 @@ class LogParser {
         return $fileData;
     }
 
-    function getMostFrequentFiles () {
-        // remove params from requests
-        $requestsSansParams = [];
-        foreach ( $this->requests as $entry ) {
-            $pos = strpos($entry, "?");
-            if ( $pos ) {
-                $requestsSansParams[] = substr($entry, 0, $pos);
-            } else {
-                $requestsSansParams[] = $entry;
-            }
-        }
-
-        // sort and quantify
-        $requestsSansParams = array_count_values($requestsSansParams);
-        arsort($requestsSansParams);
-        $frequent = array_slice(array_keys($requestsSansParams), 0, 3, true);
-        return $frequent;
-    }
-
-    function getFilePercentages () {
-        // remove params from requests
-        $requestsSansParams = [];
-        foreach ( $this->requests as $entry ) {
-            $pos = strpos($entry, "?");
-            if ( $pos ) {
-                $requestsSansParams[] = substr($entry, 0, $pos);
-            } else {
-                $requestsSansParams[] = $entry;
-            }
-        }
-
-        $total = count($requestsSansParams);
-        $requestsCount = array_count_values($requestsSansParams);
-        arsort($requestsCount);
-        $percentages = [];
-        foreach ( $requestsCount as $request ) {
-            $percentages[] = round((intval($request) / $total) * 100);
-        }
-        return $percentages;
-    }
 
     function getReferrerData () {
         $referrerData = [];
