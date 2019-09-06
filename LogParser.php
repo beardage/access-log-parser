@@ -31,7 +31,7 @@ class LogParser {
     }
 
     function getNumberOfEntries () {
-        return count($this->matchArray);
+        return count($this->matchArray[0]);
     }
 
     function getNumberOfErrors () {
@@ -95,23 +95,15 @@ class LogParser {
         return $percentages;
     }
 
-    function getMostPopularReferrers () {
-        // sort and quantify
-        $referrers = array_count_values($this->referrers);
-        arsort($referrers);
-        $popular = array_slice(array_keys($referrers), 0, 3, true);
-        return $popular;
-    }
-
-    function getReferrerPercentage () {
-        $total = count($this->referrers);
-        $referrersCount = array_count_values($this->referrers);
-        arsort($referrersCount);
-        $percentages = [];
-        foreach ( $referrersCount as $referrer ) {
-            $percentages[] = round((intval($referrer) / $total) * 100);
+    function getReferrerData () {
+        $referrerData = [];
+        $referrerData['referrers'] = array_values(array_unique($this->referrers));
+        $referrerData['counts'] = array_count_values($this->referrers);
+        arsort($referrerData['counts']);
+        foreach ( $referrerData['counts'] as $referrer ) {
+            $referrerData['percentages'][] = round((intval($referrer) / count($this->referrers)) * 100);
         }
-        return $percentages;
+        return $referrerData;
     }
 }
 

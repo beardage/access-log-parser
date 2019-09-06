@@ -3,7 +3,6 @@ include 'LogParser.php';
 $parser = new LogParser(file_get_contents('accesslog_kylebeard.com_9_1_2019'));
 ?>
 
-
 <h1>Log Parser</h1>
 <table>
     <tbody>
@@ -35,12 +34,14 @@ $parser = new LogParser(file_get_contents('accesslog_kylebeard.com_9_1_2019'));
             <td>Most Popular Referrers</td>
             <td>
                 <?php
-                $mostFrequentReferrers = $parser->getMostPopularReferrers();
-                $referrerPercentages = $parser->getReferrerPercentage();
+                $referrerData = $parser->getReferrerData();
+                foreach ($referrerData['counts'] as $key => $value) {
+                    $percentage = round( ( (intval($value) / $parser->getNumberOfEntries() ) * 100) );
+                    ?>
+                    <p><?= $key ?> <span>(<?= $percentage ?>%)</span></p>
+                    <?php
+                }
                 ?>
-                <?= $mostFrequentReferrers[0] ?> <span><?= $referrerPercentages[0] ?>%</span><br>
-                <?= $mostFrequentReferrers[1] ?> <span><?= $referrerPercentages[1] ?>%</span><br>
-                <?= $mostFrequentReferrers[2] ?> <span><?= $referrerPercentages[2] ?>%</span>
             </td>
         </tr>
 
