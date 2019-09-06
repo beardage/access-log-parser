@@ -72,13 +72,20 @@ class LogParser {
         return $fileData;
     }
 
-
     function getReferrerData () {
         $referrerData = [];
         $referrerData['referrers'] = array_values(array_unique($this->referrers));
         $referrerData['counts'] = array_count_values($this->referrers);
         arsort($referrerData['counts']);
         return $referrerData;
+    }
+
+    function getUserAgentData () {
+        $userAgentsData = [];
+        $userAgentsData['referrers'] = array_values(array_unique($this->userAgents));
+        $userAgentsData['counts'] = array_count_values($this->userAgents);
+        arsort($userAgentsData['counts']);
+        return $userAgentsData;
     }
 }
 

@@ -46,7 +46,20 @@ $parser = new LogParser(file_get_contents('accesslog_kylebeard.com_9_1_2019'));
                 ?>
             </td>
         </tr>
-
+        <tr>
+            <td>Most Popular User Agents</td>
+            <td>
+                <?php
+                $userAgentData = $parser->getUserAgentData();
+                foreach ($userAgentData['counts'] as $key => $value) {
+                    $percentage = round( ( (intval($value) / $parser->getNumberOfEntries() ) * 100) );
+                    ?>
+                    <p><?= $key ?> <span>(<?= $percentage ?>%)</span></p>
+                    <?php
+                }
+                ?>
+            </td>
+        </tr>
     </tbody>
 </table>
 <style>
